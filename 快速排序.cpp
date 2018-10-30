@@ -6,11 +6,11 @@ void sort(int* arr,int len) {
 	int i = 0, j = len - 1;
 	while (i < j) {
 		while (arr[j] > selected&& j>0 && i<j) j--;
-		if (arr[j] <= selected && i<j) {//НЪїУ
+		if (arr[j] <= selected && i<j) {
 			arr[i++] = arr[j];
 		}
 		while (i<j && arr[i]<selected) i++;
-		if (arr[i] >= selected && i < j) {//МоїУ
+		if (arr[i] >= selected && i < j) {
 			arr[j--] = arr[i];
 		}
 		if (i == j) {
