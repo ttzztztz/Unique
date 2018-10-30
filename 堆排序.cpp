@@ -17,14 +17,12 @@ void makeHeap(int* arr,int len) {
 	}
 }
 void remakeHeap(int* arr, int len) {
-	int parent_index = 0;
 	for (int i = 1;i < len ; i=2*i+1) {
+		int parent_index = (i - 1) / 2;
 		if (i + 1 < len && arr[i] > arr[i + 1])
 			i++;
-		if (arr[i] < arr[parent_index]) { 
+		if (arr[i] < arr[parent_index])
 			swap(arr[i], arr[parent_index]);
-			parent_index = i;
-		}
 		else break;
 	}
 }
