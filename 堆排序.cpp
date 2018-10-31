@@ -8,7 +8,7 @@ void swap(int& a , int &b) {
 	b = t;
 }
 void makeHeap(int* arr,int len) {
-	for (int i = (len - 3) / 2; i >= 0; i--) {
+	for (int i = (len - 2) / 2; i >= 0; i--) {
 		int index_child1 = 2 * i + 1 , index_child2 =2 * i + 2 ;
 		int child1 = lst[index_child1], child2 = lst[index_child2];
 		if (arr[i] <= child1 && arr[i] <= child2) continue;
