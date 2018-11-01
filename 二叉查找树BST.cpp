@@ -17,6 +17,14 @@ public:
 		this->rightTree = NULL;
 		this->parentTree = NULL;
 	}
+	void emptyTree(BinSearchTree* tree) {
+		if(tree){
+			emptyTree(tree->leftTree);
+			emptyTree(tree->rightTree);
+			delete tree;
+		}
+		tree = NULL;
+	}
 	void setLeftTree(BinSearchTree* bst) {
 		this->leftTree = bst;
 		bst->parentTree = this;
