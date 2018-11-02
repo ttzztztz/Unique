@@ -1,6 +1,9 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+
+// Author : Yang Ziyue
+// Finished : 20181102
 using namespace std;
 class TreeNode {
 public:
