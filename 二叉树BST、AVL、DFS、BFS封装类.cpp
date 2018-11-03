@@ -5,54 +5,54 @@
 // Author : Yang Ziyue
 // Finished : 20181102
 using namespace std;
-template<class T>class TreeNode {
+class TreeNode {
 public:
 	TreeNode* leftTree;
 	TreeNode* rightTree;
-	T value;
+	int value;
 	TreeNode() {
 		leftTree = NULL;
 		rightTree = NULL;
 		value = 0;
 	}
-	TreeNode(int val) :value(val) {
+	TreeNode(int val) :value(val){
 		leftTree = NULL;
 		rightTree = NULL;
 	}
 };
-template<class T>class BinTree {
+class BinTree {
 public:
-	void preOutputRecursive(TreeNode<T>* root) {
+	void preOutputRecursive(TreeNode* root) {
 		cout << root->value << endl;
-		if (root->leftTree != NULL) preOutputRecursive(root->leftTree);
+		if(root->leftTree!=NULL) preOutputRecursive(root->leftTree);
 		if (root->rightTree != NULL)preOutputRecursive(root->rightTree);
 	}
-	void middleOutputRecursive(TreeNode<T>* root) {
+	void middleOutputRecursive(TreeNode* root) {
 		if (root->leftTree != NULL)middleOutputRecursive(root->leftTree);
 		cout << root->value << endl;
 		if (root->rightTree != NULL)middleOutputRecursive(root->rightTree);
 	}
-	void afterOutputRecursive(TreeNode<T>* root) {
+	void afterOutputRecursive(TreeNode* root) {
 		if (root->leftTree != NULL)afterOutputRecursive(root->leftTree);
 		if (root->rightTree != NULL)afterOutputRecursive(root->rightTree);
 		cout << root->value << endl;
 	}
-	void layerOutput(TreeNode<T>* root) {
+	void layerOutput(TreeNode* root) {
 		cout << root->value << endl;
-		queue<TreeNode<T>*> que;
-		if (root->leftTree != NULL) que.push(root->leftTree);
+		queue<TreeNode*> que;
+		if(root->leftTree!=NULL) que.push(root->leftTree);
 		if (root->rightTree != NULL) que.push(root->rightTree);
 		while (que.size() != 0) {
-			TreeNode<T>* now = que.front();
+			TreeNode* now = que.front();
 			cout << now->value << endl;
 			que.pop();
 			if (now->leftTree != NULL) que.push(now->leftTree);
 			if (now->rightTree != NULL) que.push(now->rightTree);
 		}
 	}
-	void preOutput(TreeNode<T>* root) {
-		TreeNode<T>* now = root;
-		vector<TreeNode<T>*>stack;
+	void preOutput(TreeNode* root) {
+		TreeNode* now = root;
+		vector<TreeNode*>stack;
 		while (now != NULL || stack.size() != 0) {
 			while (now != NULL) {
 				cout << now->value;
@@ -66,16 +66,16 @@ public:
 			else now = now->rightTree;
 		}
 	}
-	void middleOutput(TreeNode<T>* root) {
-		TreeNode<T>* now = root;
-		vector<TreeNode<T>*>stack;
-		while (now != NULL || stack.size() != 0) {
+	void middleOutput(TreeNode* root) {
+		TreeNode* now = root;
+		vector<TreeNode*>stack;
+		while (now != NULL || stack.size() != 0 ) {
 			while (now != NULL) {
 				stack.push_back(now);
 				now = now->leftTree;
 			}
 			if (stack.size() > 0) {
-				TreeNode<T>* last = stack[stack.size() - 1];
+				TreeNode* last = stack[stack.size() - 1];
 				cout << last->value << endl;
 				stack.pop_back();
 				now = last->rightTree;
@@ -83,9 +83,9 @@ public:
 			else now = now->rightTree;
 		}
 	}
-	void afterOutput(TreeNode<T>* root) {
-		TreeNode<T> *now = root, *lastOutput = NULL;
-		vector<TreeNode<T>*>stack;
+	void afterOutput(TreeNode* root) {
+		TreeNode *now = root , *lastOutput = NULL;
+		vector<TreeNode*>stack;
 		while (now != NULL || stack.size() != 0) {
 			while (now != NULL) {
 				stack.push_back(now);
@@ -97,15 +97,15 @@ public:
 				stack.pop_back();
 				lastOutput = now;
 				now = NULL;
-			}
+			} 
 			else now = now->rightTree;
 		}
 	}
 };
-class BinSearchTree:public BinTree<int> {
+class BinSearchTree :public BinTree {
 public:
-	TreeNode<int>* findTree(TreeNode<int>* root, int val) {
-		TreeNode<int> *now = root, *rtn = root;
+	TreeNode* findTree(TreeNode* root , int val) {
+		TreeNode *now = root , *rtn = root;
 		while (now != NULL) {
 			if (val > now->value) now = now->rightTree;
 			else if (val < now->value) now = now->leftTree;
@@ -114,20 +114,20 @@ public:
 		}
 		return rtn;
 	}
-	virtual TreeNode<int>* insertTree(TreeNode<int>* root, int val) {
+	virtual TreeNode* insertTree(TreeNode* root, int val) {
 		if (root == NULL) {
-			TreeNode<int>* _new = new TreeNode<int>(val);
+			TreeNode* _new = new TreeNode(val);
 			return _new;
 		}
 		if (val < root->value) {
-			root->leftTree = insertTree(root->leftTree, val);
+			root->leftTree = insertTree(root->leftTree , val);
 		}
-		else if (val >= root->value) {
-			root->rightTree = insertTree(root->rightTree, val);
+		else if(val >= root->value) {
+			root->rightTree = insertTree(root->rightTree , val);
 		}
 		return root;
 	}
-	virtual TreeNode<int>* deleteTree(TreeNode<int>* root, int val) {
+	virtual TreeNode* deleteTree(TreeNode* root, int val) {
 		if (root == NULL) return NULL;
 		if (val > root->value) {
 			root->rightTree = deleteTree(root->rightTree, val);
@@ -146,7 +146,7 @@ public:
 				root = root->rightTree;
 			}
 			else {
-				TreeNode<int>* current = root->rightTree;
+				TreeNode* current = root->rightTree;
 				while (current->leftTree != NULL) {
 					current = current->leftTree;
 				}
@@ -159,13 +159,13 @@ public:
 };
 class AVLTree : public BinSearchTree {
 private:
-	int max(int a, int b) {
+	int max(int a,int b) {
 		return a > b ? a : b;
 	}
 public:
-	virtual TreeNode<int>* insertTree(TreeNode<int>* root, int val) {
+	virtual TreeNode* insertTree(TreeNode* root, int val) {
 		if (root == NULL) {
-			TreeNode<int>* _new = new TreeNode<int>(val);
+			TreeNode* _new = new TreeNode(val);
 			return _new;
 		}
 		if (val < root->value) {
@@ -178,10 +178,10 @@ public:
 		}
 		return root;
 	}
-	virtual TreeNode<int>* deleteTree(TreeNode<int>* root, int val) {
+	virtual TreeNode* deleteTree(TreeNode* root, int val) {
 		if (root == NULL) return NULL;
-		if (val < root->value) deleteTree(root->rightTree, val);
-		else if (val > root->value) deleteTree(root->leftTree, val);
+		if (val < root->value) deleteTree(root->rightTree,val);
+		else if (val > root->value) deleteTree(root->leftTree,val);
 		else {
 			if (root->leftTree == NULL && root->rightTree == NULL) {
 				root = NULL;
@@ -198,40 +198,40 @@ public:
 				delete root->rightTree;
 			}
 			else {
-				TreeNode<int>* currentNode = root->rightTree;
+				TreeNode* currentNode = root->rightTree;
 				while (currentNode->leftTree != NULL) {
 					currentNode = currentNode->leftTree;
 				}
 				root->value = currentNode->value;
-				root->rightTree = deleteTree(root->rightTree, currentNode->value);
+				root->rightTree = deleteTree(root->rightTree,currentNode->value);
 			}
 		}
 		if (root == NULL) return root;
 		root = balanceTree(root);
 		return root;
 	}
-	int countHeight(TreeNode<int>* root) {
+	int countHeight(TreeNode* root) {
 		if (root == NULL) return 0;
 		return max(countHeight(root->leftTree), countHeight(root->rightTree)) + 1;
 	}
-	int countBalance(TreeNode<int>* root) {
+	int countBalance(TreeNode* root) {
 		return countHeight(root->leftTree) - countHeight(root->rightTree);
 	}
-	TreeNode<int>* leftRotate(TreeNode<int>* root) {
-		TreeNode<int>* child = root->rightTree;
+	TreeNode* leftRotate(TreeNode* root) {
+		TreeNode* child = root->rightTree;
 		root->rightTree = child->leftTree;
 		child->leftTree = root;
 		return child;
 	}
-	TreeNode<int>* rightRotate(TreeNode<int>* root) {
-		TreeNode<int>* child = root->leftTree;
+	TreeNode* rightRotate(TreeNode* root) {
+		TreeNode* child = root->leftTree;
 		root->leftTree = child->rightTree;
 		child->rightTree = root;
 		return child;
 	}
-	TreeNode<int>* balanceTree(TreeNode<int>* root) {
+	TreeNode* balanceTree(TreeNode* root) {
 		int balance = countBalance(root);
-		if (balance > 1) {
+		if (balance >1) {
 			if (countBalance(root->leftTree) > 0) {
 				root = rightRotate(root);
 			}
@@ -240,7 +240,7 @@ public:
 				root = rightRotate(root);
 			}
 		}
-		else if (balance < -1) {
+		else if (balance<-1) {
 			if (countBalance(root->rightTree) <= 0) {
 				root = leftRotate(root);
 			}
@@ -254,13 +254,13 @@ public:
 };
 int main() {
 	//examples given to test features
-	TreeNode<int>* root = new TreeNode<int>(8);
-	TreeNode<int>* node1 = new TreeNode<int>(2);
-	TreeNode<int>* node2 = new TreeNode<int>(4);
-	TreeNode<int>* node3 = new TreeNode<int>(9);
-	TreeNode<int>* node4 = new TreeNode<int>(1);
-	TreeNode<int>* node5 = new TreeNode<int>(7);
-	TreeNode<int>* node6 = new TreeNode<int>(3);
+	TreeNode* root = new TreeNode(8);
+	TreeNode* node1 = new TreeNode(2);
+	TreeNode* node2 = new TreeNode(4);
+	TreeNode* node3 = new TreeNode(9);
+	TreeNode* node4 = new TreeNode(1);
+	TreeNode* node5 = new TreeNode(7);
+	TreeNode* node6 = new TreeNode(3);
 
 	root->leftTree = node1;
 	root->rightTree = node2;
@@ -268,14 +268,14 @@ int main() {
 	node1->rightTree = node4;
 	node2->leftTree = node5;
 	node2->rightTree = node6;
-
+	
 	AVLTree* bst = new AVLTree;
-	vector<TreeNode<int>*> v;
-	TreeNode<int>* root2 = new TreeNode<int>(8);
-	int arr[] = { 8,4,9,3,7,6,5 };
-	for (int _i : arr)
-		root2 = bst->insertTree(root2, _i);
-	root2 = bst->deleteTree(root2, 7);
+	vector<TreeNode*> v;
+	TreeNode* root2 = new TreeNode(8);
+	int arr[] = {8,4,9,3,7,6,5};
+	for (int _i : arr) 
+		root2 = bst->insertTree(root2,_i);
+	root2 = bst->deleteTree(root2,7);
 	bst->layerOutput(root2);
 	return 0;
 }
