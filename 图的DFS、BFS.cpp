@@ -133,7 +133,7 @@ public:
 		while (stack.size() != 0) {
 			int now = stack[stack.size() - 1];
 			int flag = 0;
-			for (int i = 0; i < len; i++) {
+			for (int i = 0; i < len; i++){
 				if (visited[i] != 1 && edge[now][i] == 1) {
 					stack.push_back(i);
 					visited[i] = 1;
