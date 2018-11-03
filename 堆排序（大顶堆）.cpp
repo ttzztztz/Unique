@@ -7,21 +7,17 @@ void swap(int& a , int &b) {
 	a = b;
 	b = t;
 }
-void makeHeap(int* arr , int len) {
-	for (int i = (len - 2) / 2; i >= 0; i--) {
-		int index_child1 = i * 2 + 1, index_child2 = i * 2 + 2;
-		int child1 = arr[index_child1], child2 = arr[index_child2];
-		if (child1 <= arr[i] && child2 <= arr[i]) continue;
-		if (child1 > arr[i]&& child1>child2) swap(arr[i],arr[index_child1]);
-		else swap(arr[i],arr[index_child2]);
+void remakeHeap(int* arr, int len) {
+	for (int i = 1; i < len; i = 2 * i + 1) {
+		int parent_index = (i - 1) / 2;
+		if (i + 1 < len && arr[i] < arr[i + 1]) i++;
+		if (arr[i] > arr[parent_index]) swap(arr[i], arr[parent_index]);
+		else break;
 	}
 }
-void remakeHeap(int* arr ,int len) {
-	for (int i = 1; i < len; i = 2*i+1) {
-		int parent_index = (i - 1) / 2; 
-		if (i + 1 < len && arr[i] < arr[i + 1]) i++;
-		if ( arr[i] > arr[parent_index]) swap(arr[i],arr[parent_index]);
-		else break;
+void makeHeap(int* arr , int len) {
+	for (int i = (len - 2) / 2; i >= 0; i--) {
+		remakeHeap(arr+i , len-i);
 	}
 }
 void sortHeap(int* arr , int len) {
